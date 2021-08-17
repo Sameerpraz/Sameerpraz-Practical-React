@@ -1,36 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
-import Modal from 'react-modal'; 
-import React, { useState } from 'react';
+import React, { forwardRef } from 'react';
+import 'tippy.js/dist/tippy.css'
+import Tippy from '@tippy.js/react';
 
+// using child 
 
-Modal.setAppElement('#root')
+const CustomChild = forwardRef((props, ref)=>{
+  return (
+    <div ref={ref}>
+    <div>First Component</div>
+    <div>Second Component</div>
+    </div>
+  )
+
+})
+
 function App() {
-  const [modelIsOpen, setModelIsOpen]= useState(false)
   return (
     <div className="App">
-      <button onClick={()=>setModelIsOpen(true)}>Open modal</button>
-      {/* isOpen={true} is used to show modal */}
-      {/* onRequestClose={()=>setModelIsOpen(0)} le ESC key use garda modal close hunxa */}
-      {/* shouldCloseOnOverlayClick={false} le chai click garey pachi modal close garney rokxa but ESC key work*/}
-      <Modal 
-      isOpen={modelIsOpen} 
-      shouldCloseOnOverlayClick={false} 
-      onRequestClose={()=>setModelIsOpen(false)}
-      style={{
-        overlay: {
-          backgroundColor: 'blue'
-        },
-        content: {
-          background: 'red'
-        }
-      }}>
+      <div>
+        {/* removing of arrow and delaying */}
+        {/* by default tooltip is shown in bottom. We can customize it by defining placement in div tag */}
+      <Tippy arrow={false} placement='right' delay={1000} content='Hello Sameer'>
+        <button>hover</button>
+      </Tippy>
+      </div>
+      <div style={{paddingBottom: '10px'}}>
+      <Tippy content={<span style={{color:'orange'}}>Hello Sameer</span>}>
+        <button>hover</button>
+      </Tippy>
 
-        <h1>This is modal</h1>
-        <button onClick={()=>setModelIsOpen(false)}>close</button>
-      </Modal>
-      
-    </div>
+
+       <Tippy content={<span style={{color:'orange'}}>Hello Sameer</span>}> 
+         <CustomChild>hover</CustomChild>
+       </Tippy> 
+      </div>
+      </div> 
+    
   );
 }
 
