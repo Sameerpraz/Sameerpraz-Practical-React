@@ -1,44 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { forwardRef } from 'react';
-import 'tippy.js/dist/tippy.css'
-import Tippy from '@tippy.js/react';
+import React from 'react';
+import CountUp, { useCountUp } from 'react-countup';
 
-// using child 
 
-const CustomChild = forwardRef((props, ref)=>{
-  return (
-    <div ref={ref}>
-    <div>First Component</div>
-    <div>Second Component</div>
-    </div>
-  )
-
-})
 
 function App() {
+  const {countup, start, pauseResume, reset, update} = useCountUp({
+    duration: 5,
+    end: 10000,
+    startOnMount: false
+  })
   return (
-    <div className="App">
+    <div className='App'>
       <div>
-        {/* removing of arrow and delaying */}
-        {/* by default tooltip is shown in bottom. We can customize it by defining placement in div tag */}
-      <Tippy arrow={false} placement='right' delay={1000} content='Hello Sameer'>
-        <button>hover</button>
-      </Tippy>
+        <h1>hello</h1>
+       <h1>{countup}</h1> 
+      <button onClick={start}>Start</button>
+      <button onClick={reset}>Reset</button>
+      <button onClick={pauseResume}>Pause Resume</button>
+      <button onClick={() => update(2000)}>Update</button>  
       </div>
-      <div style={{paddingBottom: '10px'}}>
-      <Tippy content={<span style={{color:'orange'}}>Hello Sameer</span>}>
-        <button>hover</button>
-      </Tippy>
-
-
-       <Tippy content={<span style={{color:'orange'}}>Hello Sameer</span>}> 
-         <CustomChild>hover</CustomChild>
-       </Tippy> 
-      </div>
-      </div> 
+      <CountUp start={100} end={500} prefix='Re' duration={5}/>
+      <h1>
+      <CountUp start={100} end={500} suffix='$' duration={5}/>
+      </h1>
+    </div> 
     
-  );
+  )
 }
 
 export default App;
