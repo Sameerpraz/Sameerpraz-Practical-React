@@ -1,26 +1,58 @@
 import './App.css';
 import React, {useState} from 'react';
-import { ChromePicker } from 'react-color';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css'
 
 function App() {
-  const [color, setColor] = useState("#FFFFFF")
-  const [showColorPicker, setShowColorPicker] = useState(false)
-  
+  const [number, setNumber] = useState('')
+  const [name, setName] = useState('')
+  const [expiry, setExpire] = useState('')
+  const [cvc, setCvc] = useState('')
+  const [focus, setFocus] = useState('')
   return (
-    <div>
-      <button 
-        onClick={()=>setShowColorPicker(showColorPicker=>!showColorPicker)}
-      >
-        {showColorPicker ? 'close':'open'}
-      </button>
-      {showColorPicker && (
-        <ChromePicker 
-          color={color}
-          onChange={updateColor=>setColor(updateColor.hex)}
+  <div className={App}>
+		<Cards 
+			number={number}
+			name={name}
+			expiry={expiry}
+			cvc={cvc}
+			focused={focus}
+		/>
+
+      <form>
+        <input 
+			type='tel' 
+			name='number' 
+			placeholder="Enter Card Number" 
+			value={number} 
+			onChange={e=>setNumber(e.target.value)}
+			onFocus={e=>setFocus(e.target.name)}
         />
-      )}
-      <h1>The hex value for the color you have picked is: {color}</h1>
-      
+		<input 
+			type='tel' 
+			name='name' 
+			placeholder="Enter Card Number" 
+			value={name} 
+			onChange={e=>setName(e.target.value)}
+			onFocus={e=>setFocus(e.target.name)}
+        />
+		<input 
+			type='text' 
+			name='expiry' 
+			placeholder="MM/YY Expiry" 
+			value={expiry} 
+			onChange={e=>setExpire(e.target.value)}
+			onFocus={e=>setFocus(e.target.name)}
+        />
+		<input 
+			type='tel' 
+			name='cvc' 
+			placeholder="Enter CVC" 
+			value={cvc} 
+			onChange={e=>setCvc(e.target.value)}
+			onFocus={e=>setFocus(e.target.name)}
+        />
+      </form>
     </div> 
     
   )
