@@ -1,60 +1,32 @@
+import React, { useState } from 'react';
 import './App.css';
-import React, {useState} from 'react';
-import Cards from 'react-credit-cards';
-import 'react-credit-cards/es/styles-compiled.css'
+import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker';
+import DatePicker from "react-datepicker";
 
-function App() {
-  const [number, setNumber] = useState('')
-  const [name, setName] = useState('')
-  const [expiry, setExpire] = useState('')
-  const [cvc, setCvc] = useState('')
-  const [focus, setFocus] = useState('')
+
+function App () {
+  const [selectedDate, setSelectedDate] = useState(null)
   return (
-  <div className={App}>
-		<Cards 
-			number={number}
-			name={name}
-			expiry={expiry}
-			cvc={cvc}
-			focused={focus}
+  <div className='App'>
+	  {/* <DatePicker 
+		selected={selectedDate} 
+		onChange={date => setSelectedDate(date)}
+		dateFormat='dd/MM/yyyy'
+		maxDate={new Date()} 
+		minDate={new Date()}
+		/> */}
+{/* filter date */}
+		<DatePicker
+		selected={selectedDate} 
+		onChange={date => setSelectedDate(date)}
+		dateFormat='dd/MM/yyyy'
+		filterDate={date=>date.getDay()!== 6 && date.getDay()!==0}
+		isClearable='true'
+		showMonthDropdown
+		showYearDropdown
 		/>
-
-      <form>
-        <input 
-			type='tel' 
-			name='number' 
-			placeholder="Enter Card Number" 
-			value={number} 
-			onChange={e=>setNumber(e.target.value)}
-			onFocus={e=>setFocus(e.target.name)}
-        />
-		<input 
-			type='tel' 
-			name='name' 
-			placeholder="Enter Card Number" 
-			value={name} 
-			onChange={e=>setName(e.target.value)}
-			onFocus={e=>setFocus(e.target.name)}
-        />
-		<input 
-			type='text' 
-			name='expiry' 
-			placeholder="MM/YY Expiry" 
-			value={expiry} 
-			onChange={e=>setExpire(e.target.value)}
-			onFocus={e=>setFocus(e.target.name)}
-        />
-		<input 
-			type='tel' 
-			name='cvc' 
-			placeholder="Enter CVC" 
-			value={cvc} 
-			onChange={e=>setCvc(e.target.value)}
-			onFocus={e=>setFocus(e.target.name)}
-        />
-      </form>
-    </div> 
-    
+  </div> 
   )
 }
 
