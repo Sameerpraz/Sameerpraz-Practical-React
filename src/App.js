@@ -1,47 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { forwardRef } from 'react';
+import 'tippy.js/dist/tippy.css'
+import Tippy from '@tippy.js/react';
 
+// using child 
 
-const CustomNotify=({close})=>{
+const CustomChild = forwardRef((props, ref)=>{
   return (
-    <div>Something went wrong
-    <button onClick={close}>close</button>
+    <div ref={ref}>
+    <div>First Component</div>
+    <div>Second Component</div>
     </div>
   )
-}
 
-toast.configure()
+})
 
 function App() {
-  const notify =()=>{
-    // autoClose is used for delaying of time
-    toast(<CustomNotify/>, {
-      position: toast.POSITION.TOP_LEFT, 
-      autoClose:2000
-    })
-    toast.success('This is Success', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: false
-    })
-    toast.info('This is information', {
-      position: toast.POSITION.TOP_RIGHT
-    })
-    toast.error('This is error', {
-      position: toast.POSITION.BOTTOM_LEFT
-    })
-    toast.warn('This is Sameer', {
-      position: toast.POSITION.BOTTOM_CENTER
-    })
-    toast('This is Sameer', {
-      position: toast.POSITION.BOTTOM_RIGHT
-    })
-  }
   return (
     <div className="App">
-      <button onClick={notify}>Notify</button>
-    </div>
+      <div>
+        {/* removing of arrow and delaying */}
+        {/* by default tooltip is shown in bottom. We can customize it by defining placement in div tag */}
+      <Tippy arrow={false} placement='right' delay={1000} content='Hello Sameer'>
+        <button>hover</button>
+      </Tippy>
+      </div>
+      <div style={{paddingBottom: '10px'}}>
+      <Tippy content={<span style={{color:'orange'}}>Hello Sameer</span>}>
+        <button>hover</button>
+      </Tippy>
+
+
+       <Tippy content={<span style={{color:'orange'}}>Hello Sameer</span>}> 
+         <CustomChild>hover</CustomChild>
+       </Tippy> 
+      </div>
+      </div> 
+    
   );
 }
 
